@@ -1,19 +1,20 @@
 from django.db import models
 
 # Create your models here.
-class Teacher(models.Model):
-    first_name = models.CharField(max_length = 20)
-    last_name = models.CharField(max_length = 20)
-    teachers_id = models.IntegerField()
-    email = models.EmailField()
-    phone_number = models.CharField(max_length = 20)
-    subject_specialization = models.CharField(max_length = 20)
-    years_of_experience = models.IntegerField()
-    office_hours = models.IntegerField()
-    biography = models.TextField()
-    course_taught = models.CharField(max_length = 20)
-
+class Course(models.Model):
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
+    email = models.EmailField(unique=True)
+    gender = models.CharField(max_length=10)
+    country = models.CharField(max_length=100)
+    date_of_birth = models.DateField()
+    education_level = models.CharField(max_length=100)
+    subject_specialization = models.CharField(max_length=100)
+    bank_account_number = models.CharField(max_length=100, blank=True, null=True)
+    picture = models.ImageField()
+    bio = models.TextField(blank=True, null=True)
+    phone_number = models.CharField(max_length=15)
+    id = models.AutoField(primary_key=True)
 
     def __str__(self):
-        return f"{self.first_name}  {self.last_name}"
-
+        return f"{self.first_name} {self.last_name}"

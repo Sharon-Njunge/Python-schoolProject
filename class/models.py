@@ -3,13 +3,16 @@ from django.db import models
 # Create your models here.
 
 class Class(models.Model):
-  class_name= models.CharField(max_length=20)
-  number_of_seats= models.IntegerField()
-  number_of_students= models.IntegerField()
-  class_teacher= models.CharField(max_length=20)
-  courses= models.CharField(max_length=25)
-  available_equipments= models.TextField()
-  description = models.TextField()
-  
-  def __str__(self):
-      return f"{self.class_name}"
+    id = models.AutoField(primary_key=True)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL, null=True, related_name='classes')
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
+    school_year = models.IntegerField()
+    capacity = models.IntegerField()
+    room_number = models.IntegerField()
+    specialty = models.TextField(blank=True, null=True)
+    
+    def __str__(self):
+        return self.name

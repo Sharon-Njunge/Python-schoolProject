@@ -3,13 +3,19 @@ from django.db import models
 # Create your models here.
 
 class Courses(models.Model):
-    course_id =models.IntegerField()
-    course_name =models.CharField(max_length = 20)
-    course_code = models.PositiveSmallIntegerField()
-    start_date = models.DateField()
-    end_date = models.DateField()
-    enrolment_capacity = models.PositiveSmallIntegerField()
-    department_id =models.IntegerField()
-
+    id = models.AutoField(primary_key=True)
+    syllabus = models.CharField(max_length=200)
+    name = models.CharField(max_length=100)
+    department = models.CharField(max_length=100)
+    prerequisites = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL, null=True, related_name='courses')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    trimester = models.PositiveSmallIntegerField()
+    course_head = models.CharField(max_length=100)
+    enrollment_limit = models.IntegerField()
+    classes = models.ManyToManyField(Student_Class, related_name='courses')
+    
     def __str__(self):
-          return f"{self.course_name} {self.course_code}"
+        return self.name
